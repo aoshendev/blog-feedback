@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        /* Font settings */
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Inter'), url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap') format('woff2');
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .comment-system {
+            max-width: 700px;
+            width: 90%;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        h1 {
+            text-align: center;
+            color: #5e5f60; /* 改为图片中的颜色 */
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 500;
+        }
+        textarea, input[type="text"], input[type="email"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            color: #333;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        textarea {
+            height: 150px; /* Larger text area for longer input */
+        }
+        textarea:focus, input[type="text"]:focus, input[type="email"]:focus {
+            outline: none;
+            border-color: #5e5f60; /* 改为图片中的颜色 */
+            box-shadow: 0 0 8px rgba(94, 95, 96, 0.8);
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #5e5f60; /* 改为图片中的颜色 */
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #4b4c4d; /* 按钮悬停颜色 */
+        }
+        /* Dark mode settings */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #2e2f31;
+                color: #dcdcdc;
+            }
+            .comment-system {
+                background-color: #3b3c3e;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+            }
+            textarea, input[type="text"], input[type="email"] {
+                background-color: #444547;
+                color: #e0e0e0;
+                border-color: #4c4d4f;
+            }
+            h1 {
+                color: #c2c3c4; /* 浅色模式下的标题颜色 */
+            }
+        }
+        /* Copyright styling */
+        .copyright {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+            margin-top: 20px;
+        }
+    </style>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialize EmailJS with your Public Key
+        (function(){
+            emailjs.init("b_zJE9YxpU9jCVpLZ");
+        })();
+
+        // Function to send the email
+        function sendEmail(event) {
+            event.preventDefault(); // Prevent form submission from refreshing the page
+            
+            // Call emailjs.sendForm using your Service ID and Template ID
+            emailjs.sendForm('service_x34l2bu', 'template_gqlz8xg', '#comment-form')
+                .then(function(response) {
+                    // Success callback
+                    alert('Your message was sent successfully!');
+                }, function(error) {
+                    // Failure callback
+                    console.error('Failed to send the message:', error);
+                    alert('An error occurred, please try again later');
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="comment-system">
+        <h1>Submit Feedback</h1>
+        <form id="comment-form" onsubmit="sendEmail(event)">
+            <input type="text" name="from_name" placeholder="Your name" required />
+            <textarea name="message" placeholder="Please leave a message..." required></textarea>
+            <input type="email" name="reply_to" placeholder="Your email (optional)" />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="copyright">
+        Copyright © 2023 - Present @ Ao Shen
+    </div>
+</body>
+</html>
